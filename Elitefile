@@ -1,0 +1,27 @@
+required_version is 0.1
+
+set bin_path as      "/usr/bin/"
+set output   as      "{bin_path}fpth"
+
+set sudo     as      "sudo"
+set compiler as      "c++"
+set standard as std  "c++17"
+set flag/s   as link "stdc++fs"
+
+set sources  as      "fpaper_html.cpp"
+
+for signal "start" [
+    for exists "{bin_path}clang++" [
+        set compiler as "clang++"
+    ]
+
+    for argument "install" [
+        use exec "{sudo} {compiler} {standard} {flag/s} {sources} -o {output}"
+
+        for exists "{output}" [
+            println "Installed to {output}"
+        ]
+    ]
+
+    use signal "exit"
+]
